@@ -10,13 +10,6 @@ use std::pin::Pin;
 
 use regex::Regex;
 
-/* TODOS :
- *  - some issues on regex parsing when there are multiple links in a same line
- *    (see failing test)
- *  - better handle of cli arguments
- *  - add some doc (readme ?)
- */
-
 static DOC_FILE_REGEX: &'static str = r"(.*\.md$)|(.*\.rst$)|(?i)README";
 
 static RST_FILE_REGEX: &'static str = r"(.*\.rst$)";
