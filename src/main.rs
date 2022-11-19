@@ -16,7 +16,7 @@ static RST_FILE_REGEX: &'static str = r"(.*\.rst$)";
 static RST_LINK_REGEX: &'static str = r"`.* <(?P<link>[^>]*)>`_";
 
 static MARKDOWN_FILE_REGEX: &'static str = r"(.*\.md$)";
-static MARKDOWN_LINK_REGEX: &'static str = r"\[.*\] \((?P<link>.*)\)";
+static MARKDOWN_LINK_REGEX: &'static str = r"\[.*\]\((?P<link>.*)\)";
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
