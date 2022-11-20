@@ -1,7 +1,9 @@
+mod cli;
+use cli::Args;
+
 use futures::future::join_all;
 use futures::future::Future;
 
-use std::env;
 use std::error::Error;
 use std::fs::{self, DirEntry};
 use std::io;
@@ -9,6 +11,8 @@ use std::path::Path;
 use std::pin::Pin;
 
 use regex::Regex;
+
+use clap::Parser;
 
 static DOC_FILE_REGEX: &'static str = r"(.*\.md$)|(.*\.rst$)|(?i)README";
 
@@ -20,13 +24,8 @@ static MARKDOWN_LINK_REGEX: &'static str = r"\[.*\]\((?P<link>.*)\)";
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    let args = env::args().collect::<Vec<String>>();
-    if args.len() != 2 {
-        eprintln!("Usage: link-checker dir-path");
-        return Ok(());
-    }
-
-    let path = Path::new(&args[1]);
+    let args = Args::parse();
+    let path = Path::new(&args.target_dir);
 
     visit_doc_files(path, &|file| async move {
         let links = extract_links_from_file(&file, file_type(&file));
